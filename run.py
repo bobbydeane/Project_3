@@ -37,10 +37,35 @@ print(word)
 print(meaning)
 """
 
-print(colored("Welcome to Daily Dictionary \n", 'red'))
-print("Please select an item from the menu using a number \n")
-print("1. Begin Game \n")
-print("2. 12 letter games (Hard)\n")
-print("3. Word of the Day \n")
-print("4. How to Play \n")
-print("5. Dictionary Search")
+def main_menu():
+    while True:
+        print(colored("Welcome to Daily Dictionary \n", 'red'))
+        print("Please select an item from the menu using a number \n")
+        print("1. Begin Game \n")
+        print("2. 12 letter games (Hard)\n")
+        print("3. Word of the Day \n")
+        print("4. How to Play \n")
+        print("5. Dictionary Search")
+
+        menu_choice = int(input("Please choose a menu item using the numbers 1-5:"))
+
+        if validate_menu_choice(menu_choice):
+            print(f"You have selected menu item number:{menu_choice}")
+            break
+        return menu_choice
+def validate_menu_choice(menu_choice):
+    """
+    This function will check if the user has inputted a number
+    between 1 -5.
+    The function will return an error if the input is invalid.
+    """
+    number = menu_choice
+    if number == 1:
+        print(f"You have selected menu item {number}")
+
+    elif number == 2:
+        print(f"You have selected menu item {number}")
+
+    else: print(f"{number} is not valid")
+
+main_menu()
