@@ -37,15 +37,15 @@ word_as_list = list(word) # Converts our word into a list so it can be shuffled.
 random.shuffle(word_as_list) # Shuffles our word so the user has a clue of what word they are searching for.
 print(word_as_list) 
 shuffled_word = random.shuffle(word_as_list)
-print(meaning)
-print(word)
+# print(meaning)
+# print(word)
 """
 print(random_row)
 print(word)
 print(meaning)
 """
 
-""" HERE
+
 def main_menu():
     while True:
         print(colored("Welcome to Daily Dictionary \n", 'red'))
@@ -63,15 +63,13 @@ def main_menu():
             break
         return menu_choice
 def validate_menu_choice(menu_choice):
-    HERE
+
     """
-"""
     This function will check if the user has inputted a number
     between 1 -5.
     The function will return an error if the input is invalid.
     """
 
-"""HERE
     number = menu_choice
     if number == 1:
         print(f"You have selected menu item {number}")
@@ -84,13 +82,40 @@ def validate_menu_choice(menu_choice):
     else: print(f"{number} is not valid")
 
 def word_game():
-    print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
-    print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up")
-    print(f"Definition: {meaning}.")
-    print(f"{shuffled_word}")
+    """
+    The Word game function displays the Game text, shuffled word, meaning and the user input.
+    The user input will = user answer. This user answer will then be passed to the validate user answer function.
+    """
+    while True:
+        print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
+        print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
+        print(f"Letters: {word_as_list}")
+        print(f"Definition: {meaning}.")
+        print(f"Answer: {word}")
+        user_answer = input("Enter your answer here:\n")
+        validate_user_answer(user_answer)
+
+        if validate_user_answer(user_answer):
+            print(f"Correct! {word}: {meaning}")
 
 
+def validate_user_answer(user_answer):
+    """
+    This function will check if the user answer matches the word.
+    If the answer does not match the word, an error will be shown
+    """
+    try:
+        
+        if user_answer != word:
+            raise ValueError(
+                f"The answer {user_answer} is incorrect. Please try again."
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
 
-main_menu()
-HERE
-"""
+def main():
+    main_menu()
+    
+
+main()
