@@ -97,6 +97,8 @@ def word_game():
 
         if validate_user_answer(user_answer):
             print(f"Correct! {word}: {meaning}")
+            break
+        return main_menu
 
 
 def validate_user_answer(user_answer):
@@ -104,18 +106,24 @@ def validate_user_answer(user_answer):
     This function will check if the user answer matches the word.
     If the answer does not match the word, an error will be shown
     """
-    try:
-        
-        if user_answer != word:
-            raise ValueError(
-                f"The answer {user_answer} is incorrect. Please try again."
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
+    lowercase_answer = word.lower()
+    validate_answer = user_answer
+    if validate_answer == word:
+        print(f"Well done, would you like to play again?")
+        #this will reset the game
+        word_game()
 
+    elif validate_answer == lowercase_answer:
+        #this will return a correct answer if the user doesn't returns a lowercase correct answer
+        print(f"Well done, would you like to play again?")
+        #this will reset the game
+        word_game()
+
+    else: print(f"{user_answer} is incorrect, please try again")
+    
 def main():
     main_menu()
+    validate_user_answer
     
 
 main()
