@@ -135,30 +135,9 @@ def word_game(row_ref_start):
         if validate_user_answer(user_answer):
             print(f"Correct! {word}: {meaning}")
             break
-        return main_menu
+        return main_menu()
 
-def new_game():
-    """
 
-    The new game function selects another random word:defintion combo and resets the game.
-    """
-
-    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-    #this line includes the heading row and doesn't account for Sheets rows starting at 1
-    row_count = len(word_meaning_examples.col_values(1)) # counts all rows with data entries in col1
-    row_ref_start = row_count + 1 #accounts for Sheets rows starting at 1
-    #start the randrange at 1 if including heading row, 2 if not.
-    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) #random row is the word and meaning from the dictionary(word_meaning_examples) sheet
-    global word
-    word = random_row[0]
-    global meaning
-    meaning = random_row[1]
-    global word_as_list
-    word_as_list = list(word) # Converts our word into a list so it can be shuffled.
-    random.shuffle(word_as_list) # Shuffles our word so the user has a clue of what word they are searching for.
-    shuffled_word = random.shuffle(word_as_list)
-    
-    word_game()
 
 def validate_user_answer(user_answer):
     """
@@ -191,14 +170,27 @@ def validate_user_answer(user_answer):
         
         if play_again == "y":
             cls()
-            new_game()
+            word_game(row_ref_start)
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print(f"{play_again} is not a valid input. Please enter y/n.")
+
+    elif validate_answer != word:
+        print(f"{user_answer} is incorrect. The word we are looking for is {word}")
+        play_again = input("Would you like to play again? y/n:")
+        if play_again == "y":
+            cls()
+            word_game(row_ref_start)
         elif play_again == "n":
             cls()
             main_menu()
         else: print(f"{play_again} is not a valid input. Please enter y/n.")
         
-    else: print(f"{user_answer} is incorrect, please try again")
-    
+        
+        
+    else: user_answer = input("That isn't the corrent word. Please try again.\n Enter your answer here:\n")
+
 def main():
     main_menu()
 
