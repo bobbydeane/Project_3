@@ -3,6 +3,7 @@ import random
 from google.oauth2.service_account import Credentials
 from random import randrange
 from termcolor import colored
+import os
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -13,37 +14,54 @@ CREDS = Credentials.from_service_account_file('CREDS.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('word_meaning_examples')
-"""
-def word_meaning():
-    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-    num = 99
-    data = word_meaning_examples.get_all_values()[]
-    print(data)
-
-word_meaning()
-
-"""
-
 
 word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-#this line includes the heading row and doesn't account for Sheets rows starting at 1
-row_count = len(word_meaning_examples.col_values(1)) # counts all rows with data entries in col1
-row_ref_start = row_count + 1 #accounts for Sheets rows starting at 1
-#start the randrange at 1 if including heading row, 2 if not.
-random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) #random row is the word and meaning from the dictionary(word_meaning_examples) sheet
-word = random_row[0]
-meaning = random_row[1]
-word_as_list = list(word) # Converts our word into a list so it can be shuffled.
-random.shuffle(word_as_list) # Shuffles our word so the user has a clue of what word they are searching for.
-print(word_as_list) 
-shuffled_word = random.shuffle(word_as_list)
-# print(meaning)
+
+row_count = len(word_meaning_examples.col_values(1))  # counts all rows with data entries in col1
+row_ref_start = row_count + 1  # accounts for Sheets rows starting at 1
+    # start the randrange at 1 if including heading row, 2 if not.
+# random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+# random row is the word and meaning from the dictionary(word_meaning_examples) sheet
+# word = random_row[0]
+# meaning = random_row[1]
+# word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
+# random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
+# shuffled_word = random.shuffle(word_as_list)
+word = "word"
+meaning = "meaning"
+word_as_list = "clue"
 # print(word)
-"""
-print(random_row)
-print(word)
-print(meaning)
-"""
+
+def new_word(row_ref_start):
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+    global word
+    word = random_row[0]
+    global meaning
+    meaning = random_row[1]
+    global word_as_list
+    word_as_list = list(word)
+    random.shuffle(word_as_list)
+
+    word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
+    random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
+    
+    print(f"Welcome, here is your word and definition:")
+    print(f"word: {word}")
+    print(f"def: {meaning}")
+    print(f"{word_as_list}")
+    
+    
+
+
+# print(word)
+# print(meaning)
+    
+
+
+
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 
 def main_menu():
@@ -62,9 +80,11 @@ def main_menu():
             print(f"You have selected menu item number:{menu_choice}")
             break
         return menu_choice
-def validate_menu_choice(menu_choice):
 
+
+def validate_menu_choice(menu_choice):
     """
+
     This function will check if the user has inputted a number
     between 1 -5.
     The function will return an error if the input is invalid.
@@ -74,24 +94,41 @@ def validate_menu_choice(menu_choice):
     if number == 1:
         print(f"You have selected menu item {number}")
         #This function will launch the word game if the user selects play game from the menu.
-        word_game()
+        word_game(row_ref_start)
 
     elif number == 2:
         print(f"You have selected menu item {number}")
 
     else: print(f"{number} is not valid")
 
-def word_game():
+
+def word_game(row_ref_start):
+    cls()
     """
     The Word game function displays the Game text, shuffled word, meaning and the user input.
     The user input will = user answer. This user answer will then be passed to the validate user answer function.
+    
     """
+    
     while True:
+        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+
+        global word
+        word = random_row[0]
+        global meaning
+        meaning = random_row[1]
+        global word_as_list
+        word_as_list = list(word)
+        random.shuffle(word_as_list)
+
+        word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
+        random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
         print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
-        print(f"Letters: {word_as_list}")
+        # print(f"Letters: {word_as_list}")
         print(f"Definition: {meaning}.")
         print(f"Answer: {word}")
+        print(f"Clue: {word_as_list}")
         user_answer = input("Enter your answer here:\n")
         validate_user_answer(user_answer)
 
@@ -100,30 +137,69 @@ def word_game():
             break
         return main_menu
 
+def new_game():
+    """
+
+    The new game function selects another random word:defintion combo and resets the game.
+    """
+
+    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+    #this line includes the heading row and doesn't account for Sheets rows starting at 1
+    row_count = len(word_meaning_examples.col_values(1)) # counts all rows with data entries in col1
+    row_ref_start = row_count + 1 #accounts for Sheets rows starting at 1
+    #start the randrange at 1 if including heading row, 2 if not.
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) #random row is the word and meaning from the dictionary(word_meaning_examples) sheet
+    global word
+    word = random_row[0]
+    global meaning
+    meaning = random_row[1]
+    global word_as_list
+    word_as_list = list(word) # Converts our word into a list so it can be shuffled.
+    random.shuffle(word_as_list) # Shuffles our word so the user has a clue of what word they are searching for.
+    shuffled_word = random.shuffle(word_as_list)
+    
+    word_game()
 
 def validate_user_answer(user_answer):
     """
+
     This function will check if the user answer matches the word.
     If the answer does not match the word, an error will be shown
     """
+
     lowercase_answer = word.lower()
     validate_answer = user_answer
     if validate_answer == word:
-        print(f"Well done, would you like to play again?")
+        print(f"Correct! {word}: {meaning}")
+        play_again = input("Would you like to play again? y/n:")
+        
+        
+        if play_again == "y":
+            cls()
+            word_game(row_ref_start)
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print("Please enter y/n.")
+        
         #this will reset the game
-        word_game()
 
     elif validate_answer == lowercase_answer:
         #this will return a correct answer if the user doesn't returns a lowercase correct answer
-        print(f"Well done, would you like to play again?")
-        #this will reset the game
-        word_game()
-
+        print(f"Correct! {word}: {meaning}")
+        play_again = input("Would you like to play again? y/n:")
+        
+        if play_again == "y":
+            cls()
+            new_game()
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print(f"{play_again} is not a valid input. Please enter y/n.")
+        
     else: print(f"{user_answer} is incorrect, please try again")
     
 def main():
     main_menu()
-    validate_user_answer
-    
 
 main()
