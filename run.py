@@ -97,6 +97,37 @@ def validate_menu_choice(menu_choice):
         word_game(row_ref_start)
 
     elif number == 2:
+        # 12 letter games
+        print(f"You have selected menu item {number}")
+
+    elif number == 3:
+        # word of the day
+        print(f"You have selected menu item {number}")
+
+    elif number == 4:
+        # how to play
+        print(f"You have selected menu item {number}")
+        cls()
+        print("How to play the Daily Dictionary word games.")
+        print("The game selects Word at random from the Daily Dictionary Dataset")
+        print("and displays the definition of that word.\n")
+        print("You will then have to Guess what the selected word from its definition description.\n")
+        print("That sounds pretty tough, right?")
+        print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n")
+        a = input("To return to the main menu, please type type any letter and then press enter:")
+        if a:
+            cls()
+            main_menu()
+        
+        if return_to_menu == "y":
+            cls()
+            main_menu()
+        
+        else: print("Please enter 'y' to return to the main menu.")
+
+
+    elif number == 5:
+        # dictionary search
         print(f"You have selected menu item {number}")
 
     else: print(f"{number} is not valid")
