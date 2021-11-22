@@ -16,6 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('word_meaning_examples')
 
 word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+word_column = word_meaning_examples.col_values(1)
 
 row_count = len(word_meaning_examples.col_values(1))  # counts all rows with data entries in col1
 row_ref_start = row_count + 1  # accounts for Sheets rows starting at 1
@@ -130,6 +131,7 @@ def validate_menu_choice(menu_choice):
     elif number == 5:
         # dictionary search
         print(f"You have selected menu item {number}")
+        dictionary_search_loop()
 
     else: print(f"{number} is not valid")
 
@@ -253,6 +255,21 @@ def validate_user_answer(user_answer):
         
         
     else: user_answer = input("That isn't the corrent word. Please try again.\n Enter your answer here:\n")
+
+
+#  dictionary_search()
+
+def dictionary_search_loop():
+    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+    user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
+
+    if user_search == "menu":
+        cls()
+        main_menu()
+
+    elif user_search != "menu": print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search}").row))
+    
+    else: dictionary_search_loop()
 
 def main():
     main_menu()
