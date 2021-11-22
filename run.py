@@ -99,6 +99,7 @@ def validate_menu_choice(menu_choice):
     elif number == 2:
         # 12 letter games
         print(f"You have selected menu item {number}")
+        # definition_game(row_ref_start)
 
     elif number == 3:
         # word of the day
@@ -152,6 +153,9 @@ def word_game(row_ref_start):
         word_as_list = list(word)
         random.shuffle(word_as_list)
 
+        out_str = " "
+        clue = out_str.join(word_as_list)
+
         word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
         random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
@@ -159,7 +163,7 @@ def word_game(row_ref_start):
         # print(f"Letters: {word_as_list}")
         print(f"Definition: {meaning}.")
         print(f"Answer: {word}")
-        print(f"Clue: {word_as_list}")
+        print(f"Clue: {clue}")
         user_answer = input("Enter your answer here:\n")
         validate_user_answer(user_answer)
 
@@ -167,6 +171,34 @@ def word_game(row_ref_start):
             print(f"Correct! {word}: {meaning}")
             break
         return main_menu()
+
+def definition_game(row_ref_start):
+    cls()
+    """
+    The Definition game function will create a word/definition combo as well as an additonal 3 words.
+    The game will display the defintion and 4 words and the user will have to choose which word
+    matches the definiton.
+    
+    """
+    
+    while True:
+        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+        random_row2 = word_meaning_examples.row_values(randrange(2, row_ref_start))
+        
+
+
+        global word
+        word = random_row[0]
+        global meaning
+        meaning = random_row[1]
+        word2 = random_row2[0]
+        
+        
+
+        definition_game_words = [word, word2]
+
+        print(f"Definition: {meaning}.\n")
+        print(f"Please choose the corect word to match the Definition: {definition_game_words}")
 
 
 
