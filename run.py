@@ -3,6 +3,7 @@ import random
 from google.oauth2.service_account import Credentials
 from random import randrange
 from termcolor import colored
+from datetime import datetime # this import will be used to display the date for the word of the day mode
 import os
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -325,4 +326,22 @@ def dictionary_search_loop():
 def main():
     main_menu()
 
-main()
+# main()
+
+def word_of_the_day():
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+    global word
+    word = random_row[0]
+    global meaning
+    meaning = random_row[1]
+    today = datetime.now().date()
+    print(f"You're daily word for {today} is {word}.\n")
+    print(f"{word}: {meaning}")
+    a = input("To return to the main menu, please type type any letter and then press enter:")
+    if a:
+        cls()
+        main_menu()
+    else: print("Please enter 'y' to return to the main menu.")
+
+
+word_of_the_day()
