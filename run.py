@@ -69,8 +69,8 @@ def main_menu():
     while True:
         print(colored("Welcome to Daily Dictionary \n", 'red'))
         print("Please select an item from the menu using a number \n")
-        print("1. Begin Game")
-        print("2. 12 letter games (Hard)")
+        print("1. Word Game")
+        print("2. Definition Game")
         print("3. Word of the Day")
         print("4. How to Play")
         print("5. Dictionary Search")
@@ -100,7 +100,7 @@ def validate_menu_choice(menu_choice):
     elif number == 2:
         # 12 letter games
         print(f"You have selected menu item {number}")
-        # definition_game(row_ref_start)
+        definition_game(row_ref_start)
 
     elif number == 3:
         # word of the day
@@ -133,7 +133,7 @@ def validate_menu_choice(menu_choice):
         print(f"You have selected menu item {number}")
         dictionary_search_loop()
 
-    else: print(f"{number} is not valid")
+    else: print(f"{number} is not valid"), main_menu()
 
 
 def word_game(row_ref_start):
@@ -182,25 +182,26 @@ def definition_game(row_ref_start):
     matches the definiton.
     
     """
+
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+    random_row2 = word_meaning_examples.row_values(randrange(2, row_ref_start))
+    random_row3 = word_meaning_examples.row_values(randrange(2, row_ref_start))
+        
+    global word
+    word = random_row[0]
+    global meaning
+    meaning = random_row[1]
+    word2 = random_row2[0]
+    word3 = random_row3[0]
+        
+    definition_game_words = [word, word2, word3]
+
+    print(f"Definition: {meaning}.\n")
+    print(f"Please choose the corect word to match the Definition: {definition_game_words}")
+    user_def_answer = input("Enter your answer here:\n")
+    validate_user__definition_answer(user_def_answer)
+
     
-    while True:
-        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
-        random_row2 = word_meaning_examples.row_values(randrange(2, row_ref_start))
-        
-
-
-        global word
-        word = random_row[0]
-        global meaning
-        meaning = random_row[1]
-        word2 = random_row2[0]
-        
-        
-
-        definition_game_words = [word, word2]
-
-        print(f"Definition: {meaning}.\n")
-        print(f"Please choose the corect word to match the Definition: {definition_game_words}")
 
 
 
@@ -253,8 +254,58 @@ def validate_user_answer(user_answer):
         else: print(f"{play_again} is not a valid input. Please enter y/n.")
         
         
-        
     else: user_answer = input("That isn't the corrent word. Please try again.\n Enter your answer here:\n")
+
+
+
+def validate_user__definition_answer(user_def_answer):
+    """
+
+    This function will check if the user answer matches the word.
+    If the answer does not match the word, an error will be shown
+    """
+    lowercase_def_answer = word.lower()
+    validate_def_answer = user_def_answer
+    
+
+    if validate_def_answer == word:
+        print(f"Correct! {word}: {meaning}")
+        play_again = input("Would you like to play again? y/n:")
+        if play_again == "y":
+            cls()
+            definition_game(row_ref_start)
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print("Please enter y/n.")
+
+    elif validate_def_answer == lowercase_def_answer:
+        #this will return a correct answer if the user doesn't returns a lowercase correct answer
+        print(f"Correct! {word}: {meaning}")
+        play_again = input("Would you like to play again? y/n:")
+        
+        if play_again == "y":
+            cls()
+            definition_game(row_ref_start)
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print(f"{play_again} is not a valid input. Please enter y/n.")
+
+    elif validate_def_answer != word:
+        print(f"{user_def_answer} is incorrect. The word we are looking for is {word}")
+        play_again = input("Would you like to play again? y/n:")
+        if play_again == "y":
+            cls()
+            definition_game(row_ref_start)
+        elif play_again == "n":
+            cls()
+            main_menu()
+        else: print(f"{play_again} is not a valid input. Please enter y/n."), definition_game(row_ref_start)
+        
+        
+        
+    else: user_def_answer = input("That isn't the corrent word. Please try again.\n Enter your answer here:\n")
 
 
 #  dictionary_search()
