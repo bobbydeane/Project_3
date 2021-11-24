@@ -1,8 +1,8 @@
 import gspread
 import random
 from google.oauth2.service_account import Credentials
-from random import randrange
-from termcolor import colored
+from random import randrange # this import will be used when getting a random row from the Google sheet
+from termcolor import colored # this import will be used to colourize the terminal
 from datetime import datetime # this import will be used to display the date for the word of the day mode
 import os
 SCOPE = [
@@ -16,65 +16,39 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('word_meaning_examples')
 
-word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-word_column = word_meaning_examples.col_values(1)
+word_meaning_examples = SHEET.worksheet('word_meaning_examples') # The name of the collective dictionary dataset
+word_column = word_meaning_examples.col_values(1) # The word column variable is a list of all the words in our dicitonary
 
 row_count = len(word_meaning_examples.col_values(1))  # counts all rows with data entries in col1
 row_ref_start = row_count + 1  # accounts for Sheets rows starting at 1
-    # start the randrange at 1 if including heading row, 2 if not.
-# random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
-# random row is the word and meaning from the dictionary(word_meaning_examples) sheet
-# word = random_row[0]
-# meaning = random_row[1]
-# word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
-# random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
-# shuffled_word = random.shuffle(word_as_list)
 word = "word"
 meaning = "meaning"
 word_as_list = "clue"
-# print(word)
-
-def new_word(row_ref_start):
-    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
-    global word
-    word = random_row[0]
-    global meaning
-    meaning = random_row[1]
-    global word_as_list
-    word_as_list = list(word)
-    random.shuffle(word_as_list)
-
-    word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
-    random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
-    
-    print(f"Welcome, here is your word and definition:")
-    print(f"word: {word}")
-    print(f"def: {meaning}")
-    print(f"{word_as_list}")
-    
-    
-
-
-# print(word)
-# print(meaning)
-    
-
 
 
 
 def cls():
+    """
+    This function clears the terminal.
+    """
     os.system('cls' if os.name=='nt' else 'clear')
 
 
 def main_menu():
+    """
+    This displays the main menu / opening terminal.
+    The user must choose a menu item by typing the corresponding number from the menu list.;
+    The users choice will then be passed to the validate usser choice function
+
+    """
     while True:
         print(colored("Welcome to Daily Dictionary \n", 'red'))
         print("Please select an item from the menu using a number \n")
         print("1. Word Game")
         print("2. Definition Game")
         print("3. Word of the Day")
-        print("4. How to Play")
-        print("5. Dictionary Search")
+        print("4. Dictionary Search")
+        print("5. How to play")
 
         menu_choice = int(input("Please choose a menu item using the numbers 1-5:"))
 
@@ -99,15 +73,27 @@ def validate_menu_choice(menu_choice):
         word_game(row_ref_start)
 
     elif number == 2:
-        # 12 letter games
+        # Definition game
         print(f"You have selected menu item {number}")
+        cls()
         definition_game(row_ref_start)
 
     elif number == 3:
         # word of the day
         print(f"You have selected menu item {number}")
+        cls()
+        word_of_the_day()
 
     elif number == 4:
+        # dictionary search
+        cls()
+        print(f"You have selected menu item {number}")
+        dictionary_search_loop()
+        
+
+
+    elif number == 5:
+
         # how to play
         print(f"You have selected menu item {number}")
         cls()
@@ -127,12 +113,7 @@ def validate_menu_choice(menu_choice):
             main_menu()
         
         else: print("Please enter 'y' to return to the main menu.")
-
-
-    elif number == 5:
-        # dictionary search
-        print(f"You have selected menu item {number}")
-        dictionary_search_loop()
+        
 
     else: print(f"{number} is not valid"), main_menu()
 
@@ -146,24 +127,23 @@ def word_game(row_ref_start):
     """
     
     while True:
-        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) # selects a row form the sheet at random
 
         global word
-        word = random_row[0]
+        word = random_row[0] # assigns the value of column 0 (words column) in the sheet to the word variable
         global meaning
-        meaning = random_row[1]
+        meaning = random_row[1] # assigns the value of column 1 (meanings column) in the sheet to the meaning variable
         global word_as_list
-        word_as_list = list(word)
-        random.shuffle(word_as_list)
+        word_as_list = list(word) # converts out word to a list so it can be shiffled and displayed as a clue
+        random.shuffle(word_as_list) # shuffles the word/clue
 
         out_str = " "
-        clue = out_str.join(word_as_list)
+        clue = out_str.join(word_as_list) # puts the shuffled word back together again as a clue for the user. 
 
         word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
         random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
         print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
-        # print(f"Letters: {word_as_list}")
         print(f"Definition: {meaning}.")
         print(f"Answer: {word}")
         print(f"Clue: {clue}")
@@ -178,13 +158,13 @@ def word_game(row_ref_start):
 def definition_game(row_ref_start):
     cls()
     """
-    The Definition game function will create a word/definition combo as well as an additonal 3 words.
-    The game will display the defintion and 4 words and the user will have to choose which word
+    The Definition game function will create a word/definition combo as well as an additonal 2 words.
+    The game will display the defintion and 3 words and the user will have to choose which word
     matches the definiton.
     
     """
 
-    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) # the random_row x3 variables are the 3 random words
     random_row2 = word_meaning_examples.row_values(randrange(2, row_ref_start))
     random_row3 = word_meaning_examples.row_values(randrange(2, row_ref_start))
         
@@ -309,24 +289,25 @@ def validate_user__definition_answer(user_def_answer):
     else: user_def_answer = input("That isn't the corrent word. Please try again.\n Enter your answer here:\n")
 
 
-#  dictionary_search()
 
 def dictionary_search_loop():
+
     word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+    print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
+    print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
+
     user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
+    user_search_capitalize = user_search.title()
+    try:
+        if user_search == "menu":
+            cls()
+            main_menu()
 
-    if user_search == "menu":
-        cls()
-        main_menu()
-
-    elif user_search != "menu": print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search}").row))
+        elif user_search_capitalize != "menu": print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row)), dictionary_search_loop()    
     
-    else: dictionary_search_loop()
+        else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
 
-def main():
-    main_menu()
-
-# main()
+    except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again."), dictionary_search_loop()
 
 def word_of_the_day():
     random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
@@ -336,7 +317,7 @@ def word_of_the_day():
     meaning = random_row[1]
     today = datetime.now().date()
     print(f"You're daily word for {today} is {word}.\n")
-    print(f"{word}: {meaning}")
+    print(f"{word}: {meaning}.\n")
     a = input("To return to the main menu, please type type any letter and then press enter:")
     if a:
         cls()
@@ -344,4 +325,11 @@ def word_of_the_day():
     else: print("Please enter 'y' to return to the main menu.")
 
 
-word_of_the_day()
+def main():
+    main_menu()
+    word_game()
+    definition_game(row_ref_start)
+    word_of_the_day()
+    dictionary_search_loop()
+    
+main()
