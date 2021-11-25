@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "daily-dictionary",
+  "private_key_id": "294eacc38bcdb40922d345775edf722ef0c66c1a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCPu2koweD+7cM7\nhjLm47qrny3XjJ84Yf6MB9DH5s5p4ON6cNzKDh7fVl7M2HXkGsxzyEJIT8RGk0Y8\ncGoU/kxvPzumXmdEblGI5V99J/bkoM3fP5fmTvsrb2QasSagz4LktpL9rva4hXUn\nkPFKNBMwES1X4/OjwULJRlSJdos66kWDQWV/I0GUDez7ekkzCV74+bgCD3qDcA9e\n9WqnVo3CIeklWdfg7vILRZHlHNM1X2AVpiP9y1x/DUZGLzZbaHSqAZXdLe4yHNDZ\n5UQRs7SMkMKkccnfcgHIUQG8lZ3S/91u0DZFEljhvba2bA1qH4DIv3Ay+X+A5F2b\nDg3UEYTVAgMBAAECggEAJSKqMlYZUDRVB1mOaDo5XiMj4HecIaCr+DkCt8tJ1HA+\nxcFIQkowrsptduaMWxGTdmyst2sojoV5lZ8DwYXMcMe5HSxx6OvJ1CFTMQ50yzBC\n0KXpFJ+eZGQEzKKtlMnYi0gipTmh1B3jHYRk2yOmO3qMqRMjvVDu9PrfV57RrTg7\n2zClyPl2Zj5kCGmUnVlSMmkNEo6wQn1YX6NNGdNaAeCtfxYK7m8tMkwFRHWxFGdb\n9IhEVCSegf/fdgZ2tz4vL7tvWqLxEhMWumjGxUlsN1b7DnJRW7WwhZQjPjrGm33W\nWudw0wAyrtMpeENGycdaupUX1vxzOLuO8+l6RrLiJwKBgQDJu9uebmr8lGIAQjW9\nNq0dTzye6JIq2c+yINGhGcHPozy8ca+Q4G1x1z9lvf4LjMD1URyjNTOoaXsEO2Qo\n24iYpLAh9alM2Z5/GYnOOW3OE8yAzEMDYaT12EMpDealOhK6KFr2TpACh0InsEsU\n394kY6vlHIAMgPCV2EnZ88XZjwKBgQC2ZVYs4aLNeyaDAhIl0Eo2IaR+C+ioZmgK\nf1whtYxmSrMFDHM057G2fOTKAGLnphJ8lFHaR+6S+OCmW3fw1L7i5MAVawKFllO/\nZLL7DGwwUNmRnNXm8ZC4CgSv5Mk4Sf/KCkPvrsUTpCLxUBBW35Ggdftek6GnmHWg\nM+jPYtJhWwKBgQDCASm5+VJmSYTd3s6zgsuFLliMMfmvv/xfv/QZzB15Q/D7ARHo\ncAyQuII9pDOWg+xlf3Xc9yMQyTAG597w8/8vXOIOJqSERZyJetPuQYh58Mxw6P9h\nVxw/WZVs+/Nd3rV31at0yCTyaYWTiZULJCgMMtZy5a+3VqEIWhLbyfXxvQKBgQCq\nP2R0eBfyHGUSG7i8uvLKHBTh4lPD+/JY+hARFth6EneO2tQeKbXjVChptHqdJpJS\n3k6YpFO3s75dCTum+61BM6tnUn8EGhEJsQCu/CVv48dw9ydhbVFbt14woCiB9fBf\nsb0/1630a1yCSe02aXAQio+a88oMGW6RnmJMUT11yQKBgEt9g1zIsD/h+i2AMeGa\nfIMLYxLB5/SWUadO8D6rJY3bkaD9Y1txShue6myal1wIh1A9eyPot9xpa0CmT8w+\n1pdXKDo0Rc9B6V128xRIbMKFNFlwYOeu9NDJEk7ZhQ1JfioMXDpqzY3JQFiLV1Ql\nG6SB7Sdawows71X8OFwOM7Qq\n-----END PRIVATE KEY-----\n",
+  "client_email": "dailydictionary@daily-dictionary.iam.gserviceaccount.com",
+  "client_id": "102978533402875885897",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dailydictionary%40daily-dictionary.iam.gserviceaccount.com"
+}
