@@ -19,6 +19,8 @@ SHEET = GSPREAD_CLIENT.open('word_meaning_examples')
 word_meaning_examples = SHEET.worksheet('word_meaning_examples') # The name of the collective dictionary dataset
 word_column = word_meaning_examples.col_values(1) # The word column variable is a list of all the words in our dicitonary
 
+# word_def_sheet = word_meaning_examples.col_values()
+
 row_count = len(word_meaning_examples.col_values(1))  # counts all rows with data entries in col1
 row_ref_start = row_count + 1  # accounts for Sheets rows starting at 1
 word = "word"
@@ -332,4 +334,51 @@ def main():
     word_of_the_day()
     dictionary_search_loop()
     
-main()
+# main()
+
+def test_dictionary():
+    word_column = word_meaning_examples.col_values(1)
+
+    search = input("Enter a word:")
+    for words in word_column:
+
+        if not words == search:
+            print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{search}").row)), dictionary_search_loop()
+
+        elif words != search:
+            print("Sorry, invalid input"), test_dictionary()
+            
+        else: print("Sorry, invalid input")
+        
+
+# test_dictionary(word_column)
+"""
+def dictionary2(word_meaning_examples):
+    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+    print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
+    print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
+
+    user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
+    user_search_capitalize = user_search.title()
+    
+    if not user_search:
+        print("No Data found"), dictionary2()
+
+    elif not user_search_capitalize:
+        print("No Data found"), dictionary2()
+
+    elif user_search_capitalize:
+        for words in word_meaning_examples:
+            if words == user_search_capitalize:
+                print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row)), dictionary_search_loop()
+                elif words != user_search:
+                    print("")
+                else:
+                    print("")
+    
+    else: print("Errro, try again")
+        
+"""
+
+test_dictionary()
+
