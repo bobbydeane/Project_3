@@ -53,7 +53,7 @@ def main_menu():
         print(colored("2. Definition Game", 'green'))
         print(colored("3. Word of the Day", 'blue'))
         print(colored("4. Dictionary Search", 'green'))
-        print(colored("5. How to play", 'blue'))
+        print(colored("5. How to play\n", 'blue'))
 
         menu_choice = int(input("Please choose a menu item using the numbers 1-5:"))
 
@@ -102,12 +102,19 @@ def validate_menu_choice(menu_choice):
         # how to play
         print(f"You have selected menu item {number}")
         cls()
-        print("How to play the Daily Dictionary word games.")
-        print("The game selects Word at random from the Daily Dictionary Dataset")
+        print("How to play the Daily Dictionary word games.\n")
+        print("WORD GAME - The game selects Word at random from the Daily Dictionary Dataset")
         print("and displays the definition of that word.\n")
         print("You will then have to Guess what the selected word from its definition description.\n")
         print("That sounds pretty tough, right?")
-        print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n")
+        print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n\n")
+
+        print("DEFINITION'S GAME - The game will display a definition and three words./n")
+        print("One of the words will match the Definition and the other two will be random words from our Dictionary.\n")
+        print("Can you match the Definiton to the correct word?\n\n")
+
+        print("DICTIONARY SEARCH - The search function allows you to look up a word in our dictionary.")
+        print(f"There are {row_count} words in our Dataset. If your word is included then the search function will return the Definition.\n\n")
         a = input("To return to the main menu, please type type any letter and then press enter:")
         if a:
             cls()
@@ -147,10 +154,11 @@ def word_game(row_ref_start):
 
         word_as_list = list(word)  # Converts our word into a list so it can be shuffled.
         random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
+        print(colored(f.renderText("Word Game \n"), 'green'))
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
         print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
-        print(f"Definition: {meaning}.")
-        print(f"Clue: {clue}")
+        print(f"Definition: {meaning}.\n")
+        print(f"Clue: {clue}\n")
         user_answer = input("Enter your answer here:\n")
         validate_user_answer(user_answer)
 
@@ -180,9 +188,9 @@ def definition_game(row_ref_start):
     word3 = random_row3[0]
         
     definition_game_words = [word, word2, word3]
-
+    print(colored(f.renderText("Definition's Game"), 'blue'))
     print(f"Definition: {meaning}.\n")
-    print(f"Please choose the corect word to match the Definition: {definition_game_words}")
+    print(f"Please choose the corect word to match the Definition: {definition_game_words}\n")
     user_def_answer = input("Enter your answer here:\n")
     validate_user__definition_answer(user_def_answer)
 
@@ -304,10 +312,12 @@ def dictionary_search_loop():
 
     word_meaning_examples = SHEET.worksheet('word_meaning_examples')
     word_column = word_meaning_examples.col_values(1) # The is the list of words from the word column in our sheet
+
+    print(colored(f.renderText("Dictionary Search"), 'red'))
     print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
     print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
 
-    user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
+    user_search = input("Please search for a word or type ""menu"" to return to the main menu:\n")
     user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search inputnetl
     try:
         if user_search == "menu":
@@ -339,9 +349,10 @@ def word_of_the_day():
     global meaning
     meaning = random_row[1]
     today = datetime.now().date()
+    print(colored(f.renderText("Word of the Day"), 'yellow'))
     print(f"You're daily word for {today} is {word}.\n")
     print(f"{word}: {meaning}.\n")
-    a = input("To return to the main menu, please type type any letter and then press enter:")
+    a = input("To return to the main menu, please type any letter and then press enter:")
     if a:
         cls()
         main_menu()
