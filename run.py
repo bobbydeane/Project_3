@@ -4,7 +4,10 @@ from google.oauth2.service_account import Credentials
 from random import randrange # this import will be used when getting a random row from the Google sheet
 from termcolor import colored # this import will be used to colourize the terminal
 from datetime import datetime # this import will be used to display the date for the word of the day mode
+from pyfiglet import Figlet
 import os
+
+f = Figlet(font = 'standard')
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -44,13 +47,13 @@ def main_menu():
 
     """
     while True:
-        print(colored("Welcome to Daily Dictionary \n", 'red'))
+        print(colored(f.renderText("Welcome to Daily Dictionary \n"), 'red'))
         print("Please select an item from the menu using a number \n")
-        print("1. Word Game")
-        print("2. Definition Game")
-        print("3. Word of the Day")
-        print("4. Dictionary Search")
-        print("5. How to play")
+        print(colored("1. Word Game", 'blue'))
+        print(colored("2. Definition Game", 'green'))
+        print(colored("3. Word of the Day", 'blue'))
+        print(colored("4. Dictionary Search", 'green'))
+        print(colored("5. How to play", 'blue'))
 
         menu_choice = int(input("Please choose a menu item using the numbers 1-5:"))
 
@@ -147,7 +150,6 @@ def word_game(row_ref_start):
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
         print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
         print(f"Definition: {meaning}.")
-        print(f"Answer: {word}")
         print(f"Clue: {clue}")
         user_answer = input("Enter your answer here:\n")
         validate_user_answer(user_answer)
@@ -195,7 +197,7 @@ def validate_user_answer(user_answer):
     If the answer does not match the word, an error will be shown
     """
 
-    lowercase_answer = word.lower()
+    lowercase_answer = word.lower() # this will account for the users answer being all lowercase
     validate_answer = user_answer
     if validate_answer == word:
         print(f"Correct! {word}: {meaning}")
@@ -294,13 +296,19 @@ def validate_user__definition_answer(user_def_answer):
 
 def dictionary_search_loop():
 
+    """
+    The dictionary search loop function allows the user to search for a word from the dictionary.
+    The function will cycle through the words in or word column and if the word matches the user search input then
+    the function will return the row value - this will be the word/definition list.
+    """
+
     word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-    word_column = word_meaning_examples.col_values(1)
+    word_column = word_meaning_examples.col_values(1) # The is the list of words from the word column in our sheet
     print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
     print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
 
     user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
-    user_search_capitalize = user_search.title()
+    user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search inputnetl
     try:
         if user_search == "menu":
             cls()
@@ -308,7 +316,7 @@ def dictionary_search_loop():
 
         elif user_search_capitalize != "menu": 
             
-            if user_search in word_column:
+            if user_search_capitalize in word_column:
                 print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row))
                 search_again = input("Would you like to search again? y/n:")
                 if search_again == "y":
@@ -320,7 +328,7 @@ def dictionary_search_loop():
                 else: print("invalid input"), dictionary_search_loop()
             else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
     
-        else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
+        else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word.\n"), dictionary_search_loop()
 
     except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again."), dictionary_search_loop()
 
@@ -347,86 +355,7 @@ def main():
     word_of_the_day()
     dictionary_search_loop()
     
-# main()
+main()
 
-def test_dictionary():
-    word_column = word_meaning_examples.col_values(1)
-    search = input("Enter a word:")
-    word_from_dict = SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{search}").row)
-    
-    for words in word_column:
 
-        if search == words:
-            print(word_from_dict)
-            
-            test_dictionary()
-        elif search != words:
-            print(f"{search} is not in our Dictionary. Please try another word.")
-            break
-            
-        else: print("input not found")
-        
-
-    """
-    for words in word_column:
-
-        if not words == search:
-            print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{search}").row)), dictionary_search_loop()
-
-        elif words != search:
-            print("Sorry, invalid input"), test_dictionary()
-            
-        else: print("Sorry, invalid input")
-        """
-
-# test_dictionary(word_column)
-"""
-def dictionary2(word_meaning_examples):
-    word_meaning_examples = SHEET.worksheet('word_meaning_examples')
-    print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
-    print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
-
-    user_search = input("Please search for a word or type ""menu"" to return to the main menu:")
-    user_search_capitalize = user_search.title()
-    
-    if not user_search:
-        print("No Data found"), dictionary2()
-
-    elif not user_search_capitalize:
-        print("No Data found"), dictionary2()
-
-    elif user_search_capitalize:
-        for words in word_meaning_examples:
-            if words == user_search_capitalize:
-                print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row)), dictionary_search_loop()
-                elif words != user_search:
-                    print("")
-                else:
-                    print("")
-    
-    else: print("Errro, try again")
-        
-"""
-
-# test_dictionary()
-
-def dict4():
-    print("word not found, please try again.")
-    dict3()
-
-def dict3():
-    word_column = word_meaning_examples.col_values(1)
-    search = input("Enter a word:")
-    
-    for words3 in word_column:
-        if search != words3:
-            print(words3.cell)
-            
-            
-        
-        else: print(words3)
-
-# dict3()
-
-dictionary_search_loop()
 
