@@ -295,6 +295,7 @@ def validate_user__definition_answer(user_def_answer):
 def dictionary_search_loop():
 
     word_meaning_examples = SHEET.worksheet('word_meaning_examples')
+    word_column = word_meaning_examples.col_values(1)
     print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
     print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
 
@@ -305,7 +306,19 @@ def dictionary_search_loop():
             cls()
             main_menu()
 
-        elif user_search_capitalize != "menu": print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row)), dictionary_search_loop()    
+        elif user_search_capitalize != "menu": 
+            
+            if user_search in word_column:
+                print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row))
+                search_again = input("Would you like to search again? y/n:")
+                if search_again == "y":
+                    cls()
+                    dictionary_search_loop()
+                elif search_again == "n":
+                    cls()
+                    main_menu()
+                else: print("invalid input"), dictionary_search_loop()
+            else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
     
         else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
 
@@ -338,8 +351,23 @@ def main():
 
 def test_dictionary():
     word_column = word_meaning_examples.col_values(1)
-
     search = input("Enter a word:")
+    word_from_dict = SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{search}").row)
+    
+    for words in word_column:
+
+        if search == words:
+            print(word_from_dict)
+            
+            test_dictionary()
+        elif search != words:
+            print(f"{search} is not in our Dictionary. Please try another word.")
+            break
+            
+        else: print("input not found")
+        
+
+    """
     for words in word_column:
 
         if not words == search:
@@ -349,7 +377,7 @@ def test_dictionary():
             print("Sorry, invalid input"), test_dictionary()
             
         else: print("Sorry, invalid input")
-        
+        """
 
 # test_dictionary(word_column)
 """
@@ -380,5 +408,25 @@ def dictionary2(word_meaning_examples):
         
 """
 
-test_dictionary()
+# test_dictionary()
+
+def dict4():
+    print("word not found, please try again.")
+    dict3()
+
+def dict3():
+    word_column = word_meaning_examples.col_values(1)
+    search = input("Enter a word:")
+    
+    for words3 in word_column:
+        if search != words3:
+            print(words3.cell)
+            
+            
+        
+        else: print(words3)
+
+# dict3()
+
+dictionary_search_loop()
 
