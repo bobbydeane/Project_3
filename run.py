@@ -1,12 +1,9 @@
 import gspread
 import random
 from google.oauth2.service_account import Credentials
-from random import randrange
-# this import will be used when getting a random row from the Google sheet
-from termcolor import colored
-# this import will be used to colourize the terminal
-from datetime import datetime
-# this import will be used to display the date for the word of the day mode
+from random import randrange  # this import will be used when getting a random row from the Google sheet
+from termcolor import colored  # this import will be used to colourize the terminal
+from datetime import datetime  # this import will be used to display the date for the word of the day mode
 from pyfiglet import Figlet
 import os
 
@@ -58,7 +55,7 @@ def main_menu():
         print(colored("4. Dictionary Search", 'green'))
         print(colored("5. How to play\n", 'blue'))
 
-        menu_choice = int(input("Please choose a menu item using the numbers 1-5:"))
+        menu_choice = int(input("Please choose a menu item using the numbers 1-5:\n"))
 
         if validate_menu_choice(menu_choice):
             print(f"You have selected menu item number:{menu_choice}")
@@ -110,7 +107,7 @@ def validate_menu_choice(menu_choice):
 
         print("DICTIONARY SEARCH - The search function allows you to look up a word in our dictionary.")
         print(f"There are {row_count} words in our Dataset. If your word is included then the search function will return the Definition.\n\n")
-        a = input("To return to the main menu, please type type any letter and then press enter:")
+        a = input("To return to the main menu, please type type any letter and then press enter:\n")
         if a:
             cls()
             main_menu()
@@ -194,7 +191,7 @@ def validate_user_answer(user_answer):
     validate_answer = user_answer
     if validate_answer == word:
         print(f"Correct! {word}: {meaning}")
-        play_again = input("Would you like to play again? y/n:")      
+        play_again = input("Would you like to play again? y/n:\n")      
         if play_again == "y":
             cls()
             word_game(row_ref_start)
@@ -207,7 +204,7 @@ def validate_user_answer(user_answer):
     elif validate_answer == lowercase_answer:
         #this will return a correct answer if the user doesn't returns a lowercase correct answer
         print(f"Correct! {word}: {meaning}")
-        play_again = input("Would you like to play again? y/n:")
+        play_again = input("Would you like to play again? y/n:\n")
         if play_again == "y":
             cls()
             word_game(row_ref_start)
@@ -218,7 +215,7 @@ def validate_user_answer(user_answer):
 
     elif validate_answer != word:
         print(f"{user_answer} is incorrect. The word we are looking for is {word}")
-        play_again = input("Would you like to play again? y/n:")
+        play_again = input("Would you like to play again? y/n:\n")
         if play_again == "y":
             cls()
             word_game(row_ref_start)
@@ -239,7 +236,7 @@ def validate_user__definition_answer(user_def_answer):
     validate_def_answer = user_def_answer
     if validate_def_answer == word:
         print(f"Correct! {word}: {meaning}")
-        play_again = input("Would you like to play again? y/n:")
+        play_again = input("Would you like to play again? y/n:\n")
         if play_again == "y":
             cls()
             definition_game(row_ref_start)
@@ -251,7 +248,7 @@ def validate_user__definition_answer(user_def_answer):
     elif validate_def_answer == lowercase_def_answer:
         #this will return a correct answer if the user doesn't returns a lowercase correct answer
         print(f"Correct! {word}: {meaning}")
-        play_again = input("Would you like to play again? y/n:")
+        play_again = input("Would you like to play again? y/n:\n")
         if play_again == "y":
             cls()
             definition_game(row_ref_start)
@@ -262,7 +259,7 @@ def validate_user__definition_answer(user_def_answer):
 
     elif validate_def_answer != word:
         print(f"{user_def_answer} is incorrect. The word we are looking for is {word}")
-        play_again = input("Would you like to play again? y/n:")
+        play_again = input("Would you like to play again? y/n:\n")
         if play_again == "y":
             cls()
             definition_game(row_ref_start)
@@ -290,7 +287,7 @@ def dictionary_search_loop():
     print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
 
     user_search = input("Please search for a word or type ""menu"" to return to the main menu:\n")
-    user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search inputnetl
+    user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search input
     try:
         if user_search == "menu":
             cls()
@@ -299,7 +296,7 @@ def dictionary_search_loop():
         elif user_search_capitalize != "menu":
             if user_search_capitalize in word_column:
                 print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row))
-                search_again = input("Would you like to search again? y/n:")
+                search_again = input("Would you like to search again? y/n:\n")
                 if search_again == "y":
                     cls()
                     dictionary_search_loop()
@@ -322,7 +319,7 @@ def word_of_the_day():
     print(colored(f.renderText("Word of the Day"), 'yellow'))
     print(f"You're daily word for {today} is {word}.\n")
     print(f"{word}: {meaning}.\n")
-    a = input("To return to the main menu, please type any letter and then press enter:")
+    a = input("To return to the main menu, please type any letter and then press enter:\n")
     if a:
         cls()
         main_menu()
