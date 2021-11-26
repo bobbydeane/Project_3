@@ -143,7 +143,8 @@ def word_game(row_ref_start):
         random.shuffle(word_as_list)  # Shuffles our word so the user has a clue of what word they are searching for.
         print(colored(f.renderText("Word Game \n"), 'green'))
         print(f"We have selected a word or phrase from our Dictionary containing {row_count} entries")
-        print("Can you guess the word from its Dictionary Definition below? The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
+        print("Can you guess the word from its Dictionary Definition below?\n")
+        print("The letters of the word have been jumbled up but we capitalised the first letter of the word to help you.\n")
         print(f"Definition: {meaning}.\n")
         print(f"Clue: {clue}\n")
         user_answer = input("Enter your answer here:\n")
@@ -162,9 +163,8 @@ def definition_game(row_ref_start):
     The game will display the defintion and 3 words and the user will have to choose which word
     matches the definiton.
     """
-
-    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) 
     # the random_row x3 variables are the 3 random words
+    random_row = word_meaning_examples.row_values(randrange(2, row_ref_start)) 
     random_row2 = word_meaning_examples.row_values(randrange(2, row_ref_start))
     random_row3 = word_meaning_examples.row_values(randrange(2, row_ref_start))    
     global word
@@ -173,10 +173,12 @@ def definition_game(row_ref_start):
     meaning = random_row[1]
     word2 = random_row2[0]
     word3 = random_row3[0]    
-    definition_game_words = [word, word2, word3]
+    definition_game_words = [word, word2, word3]  # combines the thre definitons
+    random.shuffle(definition_game_words)  # this shuffles the correct answer clue
     print(colored(f.renderText("Definition's Game"), 'blue'))
     print(f"Definition: {meaning}.\n")
-    print(f"Please choose the corect word to match the Definition: {definition_game_words}\n")
+    print(f"Please choose the correct word to match the Definition:\n")
+    print(f"{definition_game_words}\n")
     user_def_answer = input("Enter your answer here:\n")
     validate_user__definition_answer(user_def_answer)
 
@@ -299,15 +301,40 @@ def dictionary_search_loop():
                 search_again = input("Would you like to search again? y/n:\n")
                 if search_again == "y":
                     cls()
-                    dictionary_search_loop()
+                    dictionary_search_again()
                 elif search_again == "n":
                     cls()
                     main_menu()
                 else: print("invalid input"), dictionary_search_loop()
-            else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word"), dictionary_search_loop()
-        else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word.\n"), dictionary_search_loop()
+            else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word. \n"), dictionary_search_again()
+        else: print("Sorry, unfortunately we don't have that word in our Dictionary, please search for another word.\n"), dictionary_search_again()
 
-    except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again."), dictionary_search_loop()
+    except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again.\n"), dictionary_search_again()
+
+def dictionary_search_again():
+    user_search = input("Please search for a word or type ""menu"" to return to the main menu:\n")
+    user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search input
+    try:
+        if user_search == "menu":
+            cls()
+            main_menu()
+
+        elif user_search_capitalize != "menu":
+            if user_search_capitalize in word_column:
+                print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row))
+                search_again = input("Would you like to search again? y/n:\n")
+                if search_again == "y":
+                    cls()
+                    dictionary_search_again()
+                elif search_again == "n":
+                    cls()
+                    main_menu()
+                else: print("invalid input"), dictionary_search_loop()
+            else: print("Sorry, unfortunately we don't have that word in our Dictionary, please search for another word\n"), dictionary_search_again()
+        else: print("Sorry, we unfortunately we don't have that word in our Dictionary, please search for another word.\n"), dictionary_search_again()
+
+    except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again."), dictionary_search_again()
+
 
 def word_of_the_day():
     random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
