@@ -315,6 +315,11 @@ def dictionary_search_loop():
     except ValueError: print("Apologies! That word isn't in our Dictionary collection, please try again.\n"), dictionary_search_again()
 
 def dictionary_search_again():
+
+    """
+    This function is a duplicate of the the dictionary_search_again() function
+    The title and intro to the section has been removed for better user experience.
+    """
     user_search = input("Please search for a word or type ""menu"" to return to the main menu:\n")
     user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search input
     try:
@@ -340,6 +345,12 @@ def dictionary_search_again():
 
 
 def word_of_the_day():
+    """
+    This function displays the word of the day section.
+    The current date is shown and a word/defintion from the dictionary.
+    This can be used to help the user expand their vocabulary.
+    """
+
     random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
     global word
     word = random_row[0]
