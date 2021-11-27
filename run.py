@@ -97,13 +97,13 @@ def validate_menu_choice(menu_choice):
         print("How to play the Daily Dictionary word games.\n")
         print("WORD GAME - The game selects Word at random from the Daily Dictionary Dataset")
         print("and displays the definition of that word.\n")
-        print("You will then have to Guess what the selected word from its definition description.\n")
+        print("You'll then have to determine the word from its definition description.\n")
         print("That sounds pretty tough, right?")
-        print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n\n")
+        print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n")
 
-        print("DEFINITION'S GAME - The game will display a definition and three words./n")
-        print("One of the words will match the Definition and the other two will be random words from our Dictionary.\n")
-        print("Can you match the Definiton to the correct word?\n\n")
+        print("DEFINITION'S GAME - The game will display a definition and three words.\n")
+        print("One of the words will match the Definition. The other two will be random words from our Dictionary.\n")
+        print("Can you match the Definiton to the correct word?\n")
 
         print("DICTIONARY SEARCH - The search function allows you to look up a word in our dictionary.")
         print(f"There are {row_count} words in our Dataset. If your word is included then the search function will return the Definition.\n\n")
@@ -111,7 +111,7 @@ def validate_menu_choice(menu_choice):
         if a:
             cls()
             main_menu()
-        if a == "y":
+        elif a == "y":
             cls()
             main_menu()
         else: print("Please enter 'y' to return to the main menu.")
@@ -285,8 +285,11 @@ def dictionary_search_loop():
     word_column = word_meaning_examples.col_values(1) # The is the list of words from the word column in our sheet
 
     print(colored(f.renderText("Dictionary Search"), 'red'))
-    print(f"Feel free to search for a word from our Dictionary. We have {row_count} words in our collection.\n")
-    print("Here are some examples you could try: Pollyannaish, Septuagenarian, or Chiaroscuro.\n")
+    print(f"Feel free to search for a word from our Dictionary.")
+    print(f"We have {row_count} words in our collection.\n")
+    print("Here are some examples you could try:\n")
+
+    print("Pollyannaish, Septuagenarian, or Chiaroscuro \n")
 
     user_search = input("Please search for a word or type ""menu"" to return to the main menu:\n")
     user_search_capitalize = user_search.title() # This is needed to capitalize the first letter of the user search input
@@ -355,8 +358,5 @@ def word_of_the_day():
 
 def main():
     main_menu()
-    word_game()
-    definition_game(row_ref_start)
-    word_of_the_day()
-    dictionary_search_loop()
+
 main()
