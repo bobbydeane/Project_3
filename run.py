@@ -101,11 +101,12 @@ def validate_menu_choice(menu_choice):
         print("That sounds pretty tough, right?")
         print("Don't worry, to make the task easier we will display the mixed up letters of the word as a clue.\n")
 
-        print("DEFINITION'S GAME - The game will display a definition and three words.\n")
+        print("DEFINITION'S GAME:The game will display a definition and three words.\n")
         print("One of the words will match the Definition. The other two will be random words from our Dictionary.\n")
         print("Can you match the Definiton to the correct word?\n")
 
-        print("DICTIONARY SEARCH - The search function allows you to look up a word in our dictionary.")
+        print("DICTIONARY SEARCH:")
+        print("The search function allows you to look up a word in our dictionary.")
         print(f"There are {row_count} words in our Dataset. If your word is included then the search function will return the Definition.\n\n")
         a = input("To return to the main menu, please type type any letter and then press enter:\n")
         if a:
