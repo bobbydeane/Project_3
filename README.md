@@ -1,6 +1,6 @@
 # Daily Dictionary
 
-image
+![Main_menu](https://github.com/bobbydeane/Project_3/blob/main/images/Daily-Dictionary.png?raw=true)
 
 ## live site
 
@@ -54,6 +54,8 @@ The project will be a Python Project that will be display to a Python terminal, 
 
 I created a flowchart using LucidChart to map put the programme flow. The idea was that the 'Home' page would include the main menu. The user would then select the game mode from the menu. The user input would then call a function and that function would run the game mode.
 
+![flow](https://github.com/bobbydeane/Project_3/blob/main/images/Flow.png?raw=true)
+
 The Dictionary was a googlesheet that was found on [Google Datasets](https://datasetsearch.research.google.com/).
 
 
@@ -66,18 +68,23 @@ The Dictionary was a googlesheet that was found on [Google Datasets](https://dat
 
 ***"As a user, I would like to test my existing knowledge of Words and Definitions".***
 
+![wordgame](https://github.com/bobbydeane/Project_3/blob/main/images/Word%20Game.png?raw=true)
+
  - The Word game and Definition game both call on the Dictionary Dataset that has over 13,000 words. This library is used to display a random word for the word game and gives  word definition alongside the word as an anagram as a clue.
  - The Definition game shows multiple words and the user has to match one of the words to the given definition, this will test the users vocabulary.
+
+ ![Def_Game](https://github.com/bobbydeane/Project_3/blob/main/images/Definition.png?raw=true)
 
 ***"As as game/quiz fan, I want to play something that tests me and gives me feedback when I give an incorrect input."***
 
  - Each game gives feedback that would be informative to the user.
 
 ***"As a returning user, I want to benefit from the dictionary search function.*"**
-
+![Search](https://github.com/bobbydeane/Project_3/blob/main/images/Search.png?raw=true)
  - The user can call upon the dictionary search in their everyday life to look up a word.
 
 ***"I would like to use the Daily word mode to better my vocabulary."***
+
 
  - The Daily word mode give a new word and definition each day. The user can revisit each day to learn something new.
 
