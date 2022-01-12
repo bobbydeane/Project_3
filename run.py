@@ -153,7 +153,8 @@ def word_game(row_ref_start):
 # The user input will = user answer.
 # This user answer will then be passed to the validate user answer function.
     while True:
-        random_row = word_meaning_examples.row_values(randrange(2, row_ref_start))
+        random_row = word_meaning_examples.row_values(
+            randrange(2, row_ref_start))
         # selects a row form the sheet at random
 
         global word
@@ -216,9 +217,9 @@ def definition_game(row_ref_start):
     meaning = random_row[1]
     word2 = random_row2[0]
     word3 = random_row3[0]
-    definition_game_words = [word, word2, word3] 
+    definition_game_words = [word, word2, word3]
     # combines the thre definitons
-    random.shuffle(definition_game_words) 
+    random.shuffle(definition_game_words)
     # this shuffles the correct answer clue
     print(colored(f.renderText("Definition's Game"), 'blue'))
     print(f"Definition: {meaning}.\n")
@@ -275,7 +276,7 @@ def validate_user_answer(user_answer):
         elif play_again == "n":
             cls()
             main_menu()
-        else: 
+        else:
             print(f"{play_again} is not a valid input."
                   "Please enter y/n.")
     else:
@@ -339,7 +340,7 @@ def validate_user__definition_answer(user_def_answer):
 def dictionary_search_loop():
 
     """
-    The dictionary search loop function allows 
+    The dictionary search loop function allows
     the user to search for a word from the dictionary.
     The function will cycle through the words
     in or word column and if the word matches
@@ -371,8 +372,10 @@ def dictionary_search_loop():
         elif user_search_capitalize != "menu":
             if user_search_capitalize in word_column:
                 print(
-                    SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet(
-                        'word_meaning_examples').find(f"{user_search_capitalize}").row))
+                    SHEET.worksheet(
+                        'word_meaning_examples').row_values(SHEET.worksheet(
+                            'word_meaning_examples').find(
+                                f"{user_search_capitalize}").row))
                 search_again = input("Would you like to search again? y/n:\n")
                 if search_again == "y":
                     cls()
@@ -405,7 +408,7 @@ def dictionary_search_again():
     The title and intro to the section
     has been removed for better user experience.
     """
-    user_search = input("Please search for a word or" 
+    user_search = input("Please search for a word or"
                         " type ""menu"" to return to the main menu:\n")
     user_search_capitalize = user_search.title()
     # This is needed to capitalize the first letter of the user search input
@@ -416,7 +419,10 @@ def dictionary_search_again():
 
         elif user_search_capitalize != "menu":
             if user_search_capitalize in word_column:
-                print(SHEET.worksheet('word_meaning_examples').row_values(SHEET.worksheet('word_meaning_examples').find(f"{user_search_capitalize}").row))
+                print(SHEET.worksheet(
+                    'word_meaning_examples').row_values(SHEET.worksheet(
+                        'word_meaning_examples').find(
+                            f"{user_search_capitalize}").row))
                 search_again = input("Would you like to search again? y/n:\n")
                 if search_again == "y":
                     cls()
@@ -431,7 +437,7 @@ def dictionary_search_again():
                       " Dictionary, please search for another word\n"),
                 dictionary_search_again()
         else:
-            print("Sorry, we unfortunately we don't have that word in" 
+            print("Sorry, we unfortunately we don't have that word in"
                   " our Dictionary, please search for another word.\n"),
             dictionary_search_again()
 
