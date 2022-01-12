@@ -49,7 +49,6 @@ def main_menu():
     The user must choose a menu item by typing the
     corresponding number from the menu list.;
     The users choice will then be passed to the validate usser choice function
-
     """
     while True:
         print(colored(f.renderText("Welcome to Daily Dictionary \n"), 'red'))
@@ -60,8 +59,8 @@ def main_menu():
         print(colored("4. Dictionary Search", 'green'))
         print(colored("5. How to play\n", 'blue'))
 
-        menu_choice = (int(
-             input("Please choose a menu item using the numbers 1-5:\n")))
+        menu_choice = input(
+            "Please choose a menu item using the numbers 1-5:\n")
 
         if validate_menu_choice(menu_choice):
             print(f"You have selected menu item number:{menu_choice}")
@@ -71,36 +70,35 @@ def main_menu():
 
 def validate_menu_choice(menu_choice):
     """
-
     This function will check if the user has inputted a number
     between 1 -5.
     The function will return an error if the input is invalid.
     """
 
     number = menu_choice
-    if number == 1:
+    if number == "1":
         print(f"You have selected menu item {number}")
         # This function will launch the word game from menu
         word_game(row_ref_start)
 
-    elif number == 2:
+    elif number == "2":
         # Definition game
         print(f"You have selected menu item {number}")
         cls()
         definition_game(row_ref_start)
 
-    elif number == 3:
+    elif number == "3":
         # word of the day
         print(f"You have selected menu item {number}")
         cls()
         word_of_the_day()
 
-    elif number == 4:
+    elif number == "4":
         # dictionary search
         cls()
         print(f"You have selected menu item {number}")
         dictionary_search_loop()
-    elif number == 5:
+    elif number == "5":
         # how to play
         print(f"You have selected menu item {number}")
         cls()
@@ -139,8 +137,15 @@ def validate_menu_choice(menu_choice):
         elif a == "y":
             cls()
             main_menu()
+        elif a == "":
+            cls()
+            main_menu()
         else:
             print("Please enter 'y' to return to the main menu.")
+
+    elif number == "":
+        print("Invalid entry, try again")
+        main_menu()
 
     else:
         print(f"{number} is not valid"), main_menu()
@@ -231,7 +236,6 @@ def definition_game(row_ref_start):
 
 def validate_user_answer(user_answer):
     """
-
     This function will check if the user answer matches the word.
     If the answer does not match the word, an error will be shown
     """
@@ -286,7 +290,6 @@ def validate_user_answer(user_answer):
 
 def validate_user__definition_answer(user_def_answer):
     """
-
     This function will check if the user answer matches the word.
     If the answer does not match the word, an error will be shown
     """
@@ -463,9 +466,13 @@ def word_of_the_day():
     print(colored(f.renderText("Word of the Day"), 'yellow'))
     print(f"You're daily word for {today} is {word}.\n")
     print(f"{word}: {meaning}.\n")
-    a = input("To return to the main menu,",
-              " please type any letter and then press enter:\n")
-    if a:
+    any = input(
+        "To return to the main menu, "
+        "please type any letter and then press enter:\n")
+    if any:
+        cls()
+        main_menu()
+    elif any == "":
         cls()
         main_menu()
     else:
