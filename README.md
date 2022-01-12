@@ -112,7 +112,11 @@ Block text for titles imported from Figlet
 
 **Heroku**
 
-## Testing
+## Validator Testing
+
+The programme underwent PEP8 validation from - http://www.pep8online.com/
+
+![PEP8](https://github.com/bobbydeane/Project_3/blob/main/images/PEP8_validator.png?raw=true)
 
 ### Manual Python Testing
 
@@ -131,6 +135,11 @@ I had to remove all functions from the main() function because this would cause 
 I had to add code to accommodate for the user answers being in lowercase because all entries in the dictionary began with a capital.
 
 #
+## Deployment
+
+The site was deployed to GitHub pages. The steps to deploy are as follows: In the GitHub repository, navigate to the Settings tab From the source section drop-down menu, select the Master Branch Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+
+The live link can be found here - http://daily-dictionary-project3.herokuapp.com/
 
 ## Credits
 
